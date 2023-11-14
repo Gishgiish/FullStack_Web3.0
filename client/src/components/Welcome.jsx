@@ -3,7 +3,9 @@ import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
 
+//import { TransactionProvider } from "./context/TransactionContext";
 import { Loader } from "./";
+import { TransactionContext } from "../context/TransactionContext";
 
 const commonStyles = 'min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white';
 
@@ -20,14 +22,16 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 
 
 const Welcome = () => {
+    const{ connectWallet, currentAccount, formData, sendTransaction, handleChange } = useContext(TransactionContext);
 
-    const connectWallet = () => {
+    const handleSubmit = (e) => {
+        const { addressTo, amount, keyword, message } = formData;
 
-    }
+        e.preventDefault();
 
-    const handleSubmit = () => {
+        if(!addressTo || !amount || !keyword || !message) return;
 
-
+        sendTransaction();
     }
 
     return(
@@ -40,6 +44,7 @@ const Welcome = () => {
                     <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
                         Explore the crypto world. Buy and sell cryptocurrencies easily.
                     </p>
+                    {!currentAccount && (
                     <button
                     type="button"
                     onClick={connectWallet}
@@ -47,6 +52,7 @@ const Welcome = () => {
                     >
                         <p className="text-white text-base font-semibold">Connect Wallet</p>
                     </button>
+                    )}
                     <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
                         <div className={`rounded-tl-2xl ${commonStyles}`}>
                             Reliability

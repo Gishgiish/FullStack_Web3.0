@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 
-pragma solidity ^0.8.0;
+pragma solidity 0.8.19;
 
 import "hardhat/console.sol";
 
@@ -16,6 +16,7 @@ contract Transactions {
         string keyword
     );
 
+    //properties that our transfer needs to have
     struct TransferStruct {
         address sender;
         address receiver;
@@ -25,6 +26,7 @@ contract Transactions {
         string keyword;
     }
 
+    //transactions has to have the objects declared in our struct above
     TransferStruct[] transactions;
 
     function addToBlockchain(
@@ -59,11 +61,13 @@ contract Transactions {
         public
         view
         returns (TransferStruct[] memory)
+    //returns transactions
     {
         return transactions;
     }
 
     function getTransactionCount() public view returns (uint256) {
         return transactionCount;
+        //number of transactions
     }
 }
